@@ -1,51 +1,46 @@
-# React + TypeScript + Vite
+1) Les bases de l'objet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Créer une classe bureau avec les champs :
+- nb prises réseau
+- nb prises secteur
+- nb prises tél
+- nb chaises
+- nb tables
+- nb personnes
+et la méthode :
+* int tauxespacedispo()
 
-Currently, two official plugins are available:
+Créer deux sous-classes bureaudeveloppeur et bureaucommercial
+* int tauxespacedispo()
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Calculer le taux d'espace disponible selon les formules :
 
-## Expanding the ESLint configuration
+classe générique :
+  tauxespacedispo=
+    personne-reseau+
+    personne-secteur+
+    personne-tel+
+    personne-chaises+
+    personne-table
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+classe commercial:
+  tauxespacedispo=
+    personne-reseau+
+    personne-secteur+
+    personne-2*tel+
+    personne-2*chaises+
+    personne-table
+   
+classe developpeur:
+  tauxespacedispo=
+    personne-3*reseau+
+    personne-3*secteur+
+    personne-tel+
+    personne-1.5*chaises+
+    personne-table
 
-- Configure the top-level `parserOptions` property like this:
+Créer une classe société et ajouter 3 bureaux commerciaux et 2 bureaux developpeurs. Leur ajouter prises, tables, téléphones etc. pour que chaque bureau puisse accueillir plusieurs personnes
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Faire une boucle d'ajout de personnel (commerciaux ou développeur selon une valeur aléatoire). A chaque itération, afficher le nombre de commerciaux, de développeurs, le taux d'espace dispo de chaque bureau et le taux général de la société en appelant tauxespacedispo().
+Stopper quand il n'y a plus d'espace disponible.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-# tests_5TEAM
