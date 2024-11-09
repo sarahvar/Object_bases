@@ -44,7 +44,8 @@ Scripts disponibles
 npm run dev : Lance le serveur de développement.
 npm run build : Crée une version optimisée pour la production.
 npm run preview : Teste la version de production localement.
-1) Les bases de l'objet
+
+## 1) Les bases de l'objet
 
 Créer une classe bureau avec les champs :
 - nb prises réseau
