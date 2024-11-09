@@ -44,7 +44,7 @@ Créer une classe société et ajouter 3 bureaux commerciaux et 2 bureaux develo
 Faire une boucle d'ajout de personnel (commerciaux ou développeur selon une valeur aléatoire). A chaque itération, afficher le nombre de commerciaux, de développeurs, le taux d'espace dispo de chaque bureau et le taux général de la société en appelant tauxespacedispo().
 Stopper quand il n'y a plus d'espace disponible.
 
-Projet Vite
+## Projet Vite
 
 Ce projet utilise Vite, un bundler rapide pour le développement web moderne.
 
