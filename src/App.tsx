@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 
 // Base class for Office
 class Office {
@@ -11,35 +12,32 @@ class Office {
     public numPeople: number
   ) {}
 
-  // Generic method to calculate available space
+  // Generic method to calculate available space, ensuring it doesn't go negative
   availableSpaceRate(): number {
-    return (
-      this.numPeople -
-      (this.numNetworkSockets + this.numPowerSockets + this.numPhoneSockets +
-       this.numChairs + this.numTables)
-    );
+    const availableSpace = this.numPeople - 
+      (this.numNetworkSockets + this.numPowerSockets + this.numPhoneSockets + 
+       this.numChairs + this.numTables);
+    return Math.max(availableSpace, 0); // Ensure the available space is never negative
   }
 }
 
 // Subclass for CommercialOffice
 class CommercialOffice extends Office {
   availableSpaceRate(): number {
-    return (
-      this.numPeople -
-      (this.numNetworkSockets + this.numPowerSockets +
-       2 * this.numPhoneSockets + 2 * this.numChairs + this.numTables)
-    );
+    const availableSpace = this.numPeople - 
+      (this.numNetworkSockets + this.numPowerSockets + 
+       2 * this.numPhoneSockets + 2 * this.numChairs + this.numTables);
+    return Math.max(availableSpace, 0); // Ensure the available space is never negative
   }
 }
 
 // Subclass for DeveloperOffice
 class DeveloperOffice extends Office {
   availableSpaceRate(): number {
-    return (
-      this.numPeople -
-      (3 * this.numNetworkSockets + 3 * this.numPowerSockets +
-       this.numPhoneSockets + 1.5 * this.numChairs + this.numTables)
-    );
+    const availableSpace = this.numPeople - 
+      (3 * this.numNetworkSockets + 3 * this.numPowerSockets + 
+       this.numPhoneSockets + 1.5 * this.numChairs + this.numTables);
+    return Math.max(availableSpace, 0); // Ensure the available space is never negative
   }
 }
 
@@ -57,19 +55,7 @@ class Company {
   }
 
   // Method to add personnel
-  addPersonnel(): void {
-    // Calculate the number of commercials and developers
-    const commercialCount = this.offices.reduce(
-      (count, office) => count + (office instanceof CommercialOffice ? office.numPeople : 0),
-      0
-    );
-    const developerCount = this.offices.reduce(
-      (count, office) => count + (office instanceof DeveloperOffice ? office.numPeople : 0),
-      0
-    );
-
-    console.log(`Commercials: ${commercialCount}, Developers: ${developerCount}`);
-    
+  addPersonnel(): boolean {
     // Calculate total available space
     const totalSpaceAvailable = this.offices.reduce(
       (total, office) => total + office.availableSpaceRate(),
@@ -94,6 +80,9 @@ class Company {
           this.offices[index].numPeople += 1;
         }
       }
+      return true; // Successfully added personnel
+    } else {
+      return false; // No available space to add personnel
     }
   }
 
@@ -112,16 +101,29 @@ class Company {
 const App: React.FC = () => {
   const [company] = useState(new Company());
   const [officeStates, setOfficeStates] = useState(company.getOfficeStates());
+  const [message, setMessage] = useState<string>(''); // State for the message
 
   const handleAddPersonnel = () => {
-    company.addPersonnel();
+    const success = company.addPersonnel();
     setOfficeStates(company.getOfficeStates());
+
+    if (!success) {
+      // If no space is available, display the message
+      setMessage('There is no available space for adding new personnel.');
+    } else {
+      setMessage(''); // Clear the message when personnel is successfully added
+    }
   };
 
   return (
     <div>
       <h1>Company Office Management</h1>
       <button onClick={handleAddPersonnel}>Add Personnel</button>
+
+      {message && (
+        <div className="notification">{message}</div>
+      )}
+
       <h2>Office Status:</h2>
       <ul>
         {officeStates.map(office => (
@@ -136,13 +138,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-
-
-
-
-
-
-
-
-

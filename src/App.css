@@ -5,18 +5,18 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.notification {
+  background-color: #f8d7da; /* Red background color */
+  color: #721c24;            /* Dark red text */
+  padding: 10px 15px;        /* Padding around the text */
+  border: 1px solid #f5c6cb; /* Light red border */
+  border-radius: 5px;        /* Rounded corners */
+  margin-top: 15px;          /* Margin to separate from other content */
+  font-weight: bold;         /* Bold text */
+  text-align: center;        /* Center the text */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+
 
 @keyframes logo-spin {
   from {
